@@ -1,7 +1,6 @@
-"use client";
 import { MessageSquare } from "lucide-react";
+import ChatArea from "@/app/chat/_components/chat-area";
 import BackButton from "@/components/dashboard/back-button";
-import ChatArea from "@/components/dashboard/chat-area";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import DashboardLayout from "@/components/dashboard/dashboard-layout";
 
