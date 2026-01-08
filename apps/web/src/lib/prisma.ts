@@ -7,7 +7,7 @@ import { PrismaClient } from "@prisma/client";
 const connectionString = `${process.env.DATABASE_URL}`;
 const adapter = new PrismaPg({ connectionString });
 
-//singletone connection
+//singleton connection
 const globalForPrisma = global as unknown as { prisma?: PrismaClient };
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter });
 

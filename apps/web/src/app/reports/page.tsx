@@ -1,10 +1,18 @@
-import { FileText, Filter } from "lucide-react";
+import { FileText } from "lucide-react";
+import fetchReports from "@/actions/reports";
 import BackButton from "@/components/dashboard/back-button";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import DashboardLayout from "@/components/dashboard/dashboard-layout";
-import { Button } from "@/components/ui/button";
+import { UserDataTable } from "./_components/report-user-datatable";
 
-export default function MyReports() {
+
+
+export default async function MyReports() {
+ 
+
+  const reports = await fetchReports();
+
+
   return (
     <DashboardLayout>
       <DashboardHeader>
@@ -40,10 +48,7 @@ export default function MyReports() {
         <div className="mx-auto max-w-6xl">
           <div className="rounded-lg border border-border bg-card p-8">
             <div className="text-center text-muted-foreground">
-              <p className="mb-2 text-lg">Your table will go here</p>
-              <p className="text-sm">
-                Replace this section with your shadcn table component
-              </p>
+              <UserDataTable data={reports} />
             </div>
           </div>
         </div>

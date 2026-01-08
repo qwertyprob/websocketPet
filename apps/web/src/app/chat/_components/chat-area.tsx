@@ -20,9 +20,9 @@ export default function ChatArea() {
         {/* Input area */}
         <div className="flex gap-3 rounded-b-lg border border-border bg-card p-4">
           <input
-            type="text"
-            placeholder="Type your message here..."
             className="flex-1 rounded-lg border border-border bg-background px-4 py-2 text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-accent/50"
+            placeholder="Type your message here..."
+            type="text"
           />
           <Button className="gap-2 bg-accent hover:bg-accent/90" size="icon">
             <Send className="h-4 w-4" />

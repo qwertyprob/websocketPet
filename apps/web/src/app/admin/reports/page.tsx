@@ -1,11 +1,13 @@
-"use client";
-
 import { AlertCircle } from "lucide-react";
+import fetchReports from "@/actions/reports";
 import BackButton from "@/components/dashboard/back-button";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import DashboardLayout from "@/components/dashboard/dashboard-layout";
+import { AdminReportDataTable } from "../_components/report-admin-datatable";
 
-export default function AdminReports() {
+export default async function AdminReports() {
+  const reports = await fetchReports();
+
   return (
     <DashboardLayout>
       {/* Header */}
@@ -57,10 +59,7 @@ export default function AdminReports() {
           {/* Placeholder for admin table */}
           <div className="rounded-lg border border-border bg-card p-8">
             <div className="text-center text-muted-foreground">
-              <p className="mb-2 text-lg">Your admin table will go here</p>
-              <p className="text-sm">
-                Replace this section with your shadcn table component
-              </p>
+              <AdminReportDataTable data={reports} />
             </div>
           </div>
         </div>

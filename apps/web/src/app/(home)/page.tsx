@@ -41,6 +41,15 @@ export default async function Home() {
               View My Reports
             </Button>
           </Link>
+          <Link href="/admin/reports">
+            <Button
+              className="w-full rounded-full bg-transparent px-8 py-6 font-semibold text-lg"
+              size="lg"
+              variant="outline"
+            >
+              Admin reports
+            </Button>
+          </Link>
         </div>
 
         {/* Footer text */}

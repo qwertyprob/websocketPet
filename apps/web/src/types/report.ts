@@ -1,0 +1,15 @@
+import type { BaseType } from "./baseType";
+
+export interface ReportIssue extends BaseType {
+  title: string;
+  description?: string;
+  status: ReportStatus;
+}
+
+export const ReportStatus = {
+  OPEN: 0,
+  IN_PROGRESS: 1,
+  CLOSED: 2,
+} as const;
+
+export type ReportStatus = (typeof ReportStatus)[keyof typeof ReportStatus];
