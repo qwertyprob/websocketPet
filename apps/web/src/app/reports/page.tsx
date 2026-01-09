@@ -1,17 +1,12 @@
 import { FileText } from "lucide-react";
-import fetchReports from "@/actions/reports";
+import { fetchReports } from "@/actions/reports";
 import BackButton from "@/components/dashboard/back-button";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import DashboardLayout from "@/components/dashboard/dashboard-layout";
 import { UserDataTable } from "./_components/report-user-datatable";
 
-
-
 export default async function MyReports() {
- 
-
   const reports = await fetchReports();
-
 
   return (
     <DashboardLayout>
@@ -31,15 +26,6 @@ export default async function MyReports() {
               Track and manage all your reported issues in one place
             </p>
           </div>
-
-          {/* <Button
-            className="gap-2 whitespace-nowrap bg-transparent"
-            size="lg"
-            variant="outline"
-          >
-            <Filter className="h-4 w-4" />
-            Filter
-          </Button> */}
         </div>
       </DashboardHeader>
 

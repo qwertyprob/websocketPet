@@ -52,5 +52,7 @@
   },
   "[prisma]": {
     "editor.defaultFormatter": "Prisma.prisma"
-  }
+  },
+  "editor.cursorBlinking": "solid",
+  "editor.cursorStyle": "block"
 }

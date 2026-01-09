@@ -4,6 +4,14 @@ export interface ReportIssue extends BaseType {
   title: string;
   description?: string;
   status: ReportStatus;
+  files?: ReportAttachment[];
+}
+
+export interface ReportAttachment extends BaseType {
+  file_name: string;
+  file_path: string;
+  file_type?: string;
+  file_size?: number;
 }
 
 export const ReportStatus = {

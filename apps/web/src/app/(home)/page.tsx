@@ -1,6 +1,6 @@
 import { AlertCircle } from "lucide-react";
 import Link from "next/link";
-import ReportDialog from "@/components/report-dialog";
+import ReportDialog from "@/app/reports/_components/report-dialog";
 import { Button } from "@/components/ui/button";
 
 export default async function Home() {
