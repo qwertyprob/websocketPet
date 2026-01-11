@@ -8,15 +8,44 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const UPLOADS_DIR = path.join(__dirname, "../../../../uploads");
 
-export async function saveFileOnDisk(files: ReportAttachment[]) {
+
+export async function checkIfFileExists(fileName: string) {
   try {
-    for (const file of files) {
-      file.file_name = generateFileName();
-      const filePath = path.join(UPLOADS_DIR, file.file_name);
-      await fs.copyFile(filePath, path.join(UPLOADS_DIR, file.file_name));
+    const filesOnDisk = await fs.readdir(UPLOADS_DIR);
+
+    if (filesOnDisk.includes(fileName)) {
+      return true;
     }
-    // biome-ignore lint/suspicious/noExplicitAny: <cathing error>
-  } catch (error: any) {
-    throw new Error(error);
+
+    return false;
+  } catch (err) {
+    console.error("Error checking file existence:", err);
+    return false;
   }
 }
+
+export async function saveFilesAsync(
+  files: File[]
+): Promise<ReportAttachment[]> {
+  const saved: ReportAttachment[] = [];
+
+  for (const file of files) {
+    const ext = path.extname(file.name); // ".jpg", ".mp4" и т.д.
+    const fileName = generateFileName() + ext;
+    const filePath = path.join(UPLOADS_DIR, fileName);
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+    await fs.writeFile(filePath, buffer);
+
+    saved.push({
+      file_name: fileName,
+      file_path: filePath,
+      file_type: file.type ?? undefined,
+      file_size: file.size ?? undefined,
+    });
+  }
+
+  return saved;
+}
+
+

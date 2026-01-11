@@ -1,65 +1,84 @@
-import { IssueStatus } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
-import { type ReportIssue, ReportStatus } from "@/types/report";
-import { saveFileOnDisk } from "./file.service";
-
-//mapping from enum into type ReportStatus constant
-const statusMap: Record<IssueStatus, ReportStatus> = {
-  [IssueStatus.OPEN]: ReportStatus.OPEN,
-  [IssueStatus.IN_PROGRESS]: ReportStatus.IN_PROGRESS,
-  [IssueStatus.CLOSED]: ReportStatus.CLOSED,
-};
+import {
+  createReport,
+  deleteById,
+  getAllOpen,
+  getById,
+} from "@/repositories/report.repository";
+import type { ReportIssue } from "@/types/report";
+import { checkIfFileExists, saveFilesAsync } from "./file.service";
+import {
+  mapReportToCreateEntity,
+  mapReportToDto,
+} from "./mapper/report.mapper";
 
 //GET
 export async function getAllReportsAsync(): Promise<ReportIssue[]> {
-  const reports = await prisma.issueReport.findMany({
-    where: {
-      status: {
-        in: [IssueStatus.OPEN, IssueStatus.IN_PROGRESS],
-      },
-    },
-  });
+  const reports = await getAllOpen();
 
-  return reports.map((r) => ({
-    id: r.id,
-    title: r.title,
-    description: r.description ?? undefined,
-    status: statusMap[r.status],
-    createdAt: r.createdAt.toISOString(),
-    updatedAt: r.updatedAt.toISOString(),
-  }));
+  //mapping
+  const mappedReports: ReportIssue[] = reports.map((report) =>
+    mapReportToDto(report)
+  );
+
+  return mappedReports;
 }
 
-//POST
-export async function createReportAsync(
-  data: ReportIssue
+export async function getReportByIdAsync(
+  reportId: number
 ): Promise<ReportIssue> {
-  const savedFiles = data.files;
+  const report = await getById(reportId);
 
-  //saving files in folder:uploads
-  if (savedFiles) {
-    await saveFileOnDisk(savedFiles);
+  if (!report) {
+    throw new Error("Report not found");
   }
 
-  try {
-    const report = await prisma.issueReport.create({
-      data: {
-        title: data.title,
-        description: data.description,
-        attachments: savedFiles?.length ? { create: savedFiles } : undefined,
-      },
-      include: { attachments: true },
-    });
+  //mapping
+  return mapReportToDto(report);
+}
 
-    return {
-      id: report.id,
-      title: report.title,
-      description: report.description ?? undefined,
-      status: statusMap[report.status],
-      files: savedFiles ? savedFiles : [],
-    };
+export async function deleteReportByIdAsync(
+  reportId: number
+): Promise<boolean> {
+  const report = await getById(reportId);
+  if (!report) {
+    throw new Error("Report not found");
+  }
+  return await deleteById(reportId);
+}
+
+//CREATE
+export async function createReportAsync(
+  data: ReportIssue,
+  files: File[]
+): Promise<ReportIssue> {
+  try {
+    const filesMetaData = await saveFilesAsync(files);
+    const mappedReport = mapReportToCreateEntity(data);
+
+    //save in db
+    const report = await createReport(mappedReport, filesMetaData);
+
+    return mapReportToDto(report);
     // biome-ignore lint/suspicious/noExplicitAny: <cath service report>
   } catch (error: any) {
-    throw new Error(error.message);
+    // biome-ignore lint/complexity/noUselessCatch: <error>
+    throw error;
+  }
+}
+
+async function _deleteFiles(reports: ReportIssue[]) {
+  for (const report of reports) {
+    const files = report.files ?? [];
+
+    for (const file of files) {
+      const exists = await checkIfFileExists(file.file_name);
+      if (!exists) {
+        if (report.id !== undefined) {
+          console.log("Middleware сработал для /reports");
+          await deleteReportByIdAsync(report.id);
+        }
+        break;
+      }
+    }
   }
 }
