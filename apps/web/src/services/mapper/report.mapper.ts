@@ -1,7 +1,6 @@
 import { type IssueReport, IssueStatus } from "@prisma/client";
 import { type ReportIssue, ReportStatus } from "@/types/report";
 
-
 export interface IssueReportCreate {
   title: string;
   description: string | null;
@@ -41,8 +40,6 @@ export function mapReportToEntity(report: ReportIssue): Partial<IssueReport> {
   };
 }
 
-
-
 export function mapReportToCreateEntity(
   report: ReportIssue
 ): IssueReportCreate {
@@ -52,4 +49,3 @@ export function mapReportToCreateEntity(
     status: statusReverseMap[report.status],
   };
 }
-

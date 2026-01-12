@@ -9,9 +9,9 @@ export function mapFileToDto(file: Attachment): ReportAttachment {
     file_size: file.file_size ?? null,
     file_path: file.file_path,
     file_type: file.file_type ?? null,
-    reportId:file.reportId,
-    createdAt:file.createdAt.toISOString(),
-    updatedAt:file.updatedAt.toISOString()
+    reportId: file.reportId,
+    createdAt: file.createdAt.toISOString(),
+    updatedAt: file.updatedAt.toISOString(),
   } as ReportAttachment;
 }
 
@@ -20,8 +20,8 @@ export function mapFileToEntity(file: ReportAttachment): Attachment {
     id: file.id,
     file_name: file.file_name,
     file_path: file.file_path,
-    file_type: file.file_type ?? null, 
+    file_type: file.file_type ?? null,
     file_size: file.file_size ?? null,
-    reportId: file.reportId, 
+    reportId: file.reportId,
   } as Attachment;
 }

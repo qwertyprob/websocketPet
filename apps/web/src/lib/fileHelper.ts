@@ -4,5 +4,3 @@ export function generateFileName() {
   const unique = crypto.randomUUID();
   return `${unique}`;
 }
-
-

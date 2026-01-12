@@ -8,7 +8,6 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const UPLOADS_DIR = path.join(__dirname, "../../../../uploads");
 
-
 export async function checkIfFileExists(fileName: string) {
   try {
     const filesOnDisk = await fs.readdir(UPLOADS_DIR);
@@ -47,5 +46,3 @@ export async function saveFilesAsync(
 
   return saved;
 }
-
-

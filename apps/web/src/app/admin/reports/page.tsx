@@ -1,5 +1,5 @@
 import { AlertCircle } from "lucide-react";
-import { fetchReports } from "@/actions/reports";
+import { fetchReports } from "@/actions/report.action";
 import BackButton from "@/components/dashboard/back-button";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import DashboardLayout from "@/components/dashboard/dashboard-layout";

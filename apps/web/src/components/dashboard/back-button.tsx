@@ -9,7 +9,7 @@ export default function BackButton() {
   return (
     <button
       className="mb-6 inline-flex items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-      onClick={() => router.push("/")}
+      onClick={() => router.back()}
       type="button"
     >
       <ChevronLeft className="h-5 w-5" />

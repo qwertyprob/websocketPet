@@ -9,6 +9,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -101,6 +102,7 @@ export function UserDataTable({ data }: { data: ReportIssue[] }) {
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
   });
+  const router = useRouter();
 
   return (
     <div className="w-full">
@@ -127,7 +129,11 @@ export function UserDataTable({ data }: { data: ReportIssue[] }) {
           <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow
+                  className="cursor-pointer hover:bg-neutral-900"
+                  key={row.id}
+                  onClick={() => router.push(`/reports/${row.original.id}`)}
+                >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
