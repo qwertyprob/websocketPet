@@ -6,6 +6,7 @@ import {
 } from "@radix-ui/react-dialog";
 import { Label } from "@radix-ui/react-label";
 import { AnimatePresence, motion } from "framer-motion";
+import { AlertCircle } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 import { postReport, validateFileForForm } from "@/actions/report.action";
@@ -82,18 +83,19 @@ export default function FormReportDialog({
           />
           <AnimatePresence>
             {errors?.report?.[0] && (
-              <motion.p
+              <motion.div
                 animate={{ opacity: 1, y: 0 }}
-                className="my-2 rounded-2xlshadow-sm text-red-600"
+                className="my-2 flex items-center gap-2 rounded-md border border-red-500 bg-red-900/50 p-2 text-neutral-100 shadow-sm"
                 exit={{ opacity: 0, y: -5 }}
                 initial={{ opacity: 0, y: -5 }}
                 key="title-error"
-                transition={{ duration: 0.3 }}
+                transition={{ duration: 0.5 }}
               >
-                {errors.report[0]}
-              </motion.p>
+                <AlertCircle className="h-5 w-5 text-red-500" />
+                <span>{errors.report[0]}</span>
+              </motion.div>
             )}
-          </AnimatePresence>{" "}
+          </AnimatePresence>
         </div>
 
         {/* Description */}
@@ -121,16 +123,18 @@ export default function FormReportDialog({
             <AnimatePresence>
               {fileValidationResult?.success === false &&
                 fileValidationResult.formErrors?.map((msg, i) => (
-                  <motion.p
+                  <motion.div
                     animate={{ opacity: 1, y: 0 }}
-                    className="my-2 text-red-600"
+                    className="my-2 flex items-center gap-2 rounded-md border border-red-500 bg-red-900/50 p-2 text-neutral-100 shadow-sm"
                     exit={{ opacity: 0, y: -5 }}
                     initial={{ opacity: 0, y: -5 }}
+                    // biome-ignore lint/suspicious/noArrayIndexKey: <noArrayIndexKey>
                     key={i}
-                    transition={{ duration: 0.3 }}
+                    transition={{ duration: 0.5 }}
                   >
-                    {msg}
-                  </motion.p>
+                    <AlertCircle className="h-5 w-5 text-red-500" />
+                    <span>{msg}</span>
+                  </motion.div>
                 ))}
             </AnimatePresence>
           </div>
