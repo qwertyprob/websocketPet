@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import type React from "react";
 import "./globals.css";
+import { Toaster } from "sonner";
 
 const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
@@ -29,6 +30,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${_geist.className} bg-black text-white antialiased`}>
         {children}
+        <Toaster
+          position="top-center" // допустимое значение
+          richColors
+          toastOptions={{
+            className: "transform translate-y-1/2", // смещаем вниз
+          }}
+        />
       </body>
     </html>
   );

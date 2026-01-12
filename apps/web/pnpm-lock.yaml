@@ -50,12 +50,18 @@ importers:
       dotenv:
         specifier: ^17.2.3
         version: 17.2.3
+      framer-motion:
+        specifier: ^12.26.1
+        version: 12.26.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       lucide-react:
         specifier: ^0.562.0
         version: 0.562.0(react@19.2.3)
       next:
         specifier: 16.1.1
         version: 16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      next-themes:
+        specifier: ^0.4.6
+        version: 0.4.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       path:
         specifier: ^0.12.7
         version: 0.12.7
@@ -68,6 +74,9 @@ importers:
       react-icons:
         specifier: ^5.5.0
         version: 5.5.0(react@19.2.3)
+      sonner:
+        specifier: ^2.0.7
+        version: 2.0.7(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.4.0
@@ -109,8 +118,8 @@ importers:
         specifier: ^5
         version: 5.9.3
       ultracite:
-        specifier: 7.0.8
-        version: 7.0.8(effect@3.18.4)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))
+        specifier: 7.0.11
+        version: 7.0.11(effect@3.18.4)(oxlint@1.36.0)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3))
 
 packages:
 
@@ -1321,6 +1330,20 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
+  framer-motion@12.26.1:
+    resolution: {integrity: sha512-Uzc8wGldU4FpmGotthjjcj0SZhigcODjqvKT7lzVZHsmYkzQMFfMIv0vHQoXCeoe/Ahxqp4by4A6QbzFA/lblw==}
+    peerDependencies:
+      '@emotion/is-prop-valid': '*'
+      react: ^18.0.0 || ^19.0.0
+      react-dom: ^18.0.0 || ^19.0.0
+    peerDependenciesMeta:
+      '@emotion/is-prop-valid':
+        optional: true
+      react:
+        optional: true
+      react-dom:
+        optional: true
+
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
@@ -1489,6 +1512,12 @@ packages:
     resolution: {integrity: sha512-qOOzS1cBTWYF4BH8fVePDBOO9iptMnGUEZwNc/cMWnTV2nVLZ7VoNWEPHkYczZA0pdoA7dl6e7FL659nX9S2aw==}
     engines: {node: '>=16 || 14 >=14.17'}
 
+  motion-dom@12.24.11:
+    resolution: {integrity: sha512-DlWOmsXMJrV8lzZyd+LKjG2CXULUs++bkq8GZ2Sr0R0RRhs30K2wtY+LKiTjhmJU3W61HK+rB0GLz6XmPvTA1A==}
+
+  motion-utils@12.24.10:
+    resolution: {integrity: sha512-x5TFgkCIP4pPsRLpKoI86jv/q8t8FQOiM/0E8QKBzfMozWHfkKap2gA1hOki+B5g3IsBNpxbUnfOum1+dgvYww==}
+
   mysql2@3.15.3:
     resolution: {integrity: sha512-FBrGau0IXmuqg4haEZRBfHNWB5mUARw6hNwPDXXGg0XzVJ50mr/9hb267lvpVMnhZ1FON3qNd4Xfcez1rbFwSg==}
     engines: {node: '>= 8.0'}
@@ -1501,6 +1530,12 @@ packages:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
     hasBin: true
+
+  next-themes@0.4.6:
+    resolution: {integrity: sha512-pZvgD5L0IEvX5/9GWyHMf3m8BKiVQwsCMHfoFosXtXBMnaS0ZnIJ9ST4b4NqLVKDEm8QBxoNNGNaBv2JNF6XNA==}
+    peerDependencies:
+      react: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
+      react-dom: ^16.8 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   next@16.1.1:
     resolution: {integrity: sha512-QI+T7xrxt1pF6SQ/JYFz95ro/mg/1Znk5vBebsWwbpejj1T0A23hO7GYEaVac9QUOT2BIMiuzm0L99ooq7k0/w==}
@@ -1756,6 +1791,12 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
+  sonner@2.0.7:
+    resolution: {integrity: sha512-W6ZN4p58k8aDKA4XPcx2hpIQXBRAgyiWVkYhT7CvK6D3iAu7xjvVyhQHg2/iaKJZ1XVJ4r7XuwGL+WGEK37i9w==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+      react-dom: ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
@@ -1798,8 +1839,8 @@ packages:
     resolution: {integrity: sha512-W/KYk+NFhkmsYpuHq5JykngiOCnxeVL8v8dFnqxSD8qEEdRfXk1SDM6JzNqcERbcGYj9tMrDQBYV9cjgnunFIg==}
     engines: {node: '>=18'}
 
-  trpc-cli@0.12.1:
-    resolution: {integrity: sha512-/D/mIQf3tUrS7ZKJZ1gmSPJn2psAABJfkC5Eevm55SZ4s6KwANOUNlwhAGXN9HT4VSJVfoF2jettevE9vHPQlg==}
+  trpc-cli@0.12.2:
+    resolution: {integrity: sha512-kGNCiyOimGlfcZFImbWzFF2Nn3TMnenwUdyuckiN5SEaceJbIac7+Iau3WsVHjQpoNgugFruZMDOKf8GNQNtJw==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -1843,9 +1884,14 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  ultracite@7.0.8:
-    resolution: {integrity: sha512-b98lKaVl3UtH1TF6gZjhPQgtx063i0XpdV1nHEfexHsLyLaaosqU9FT8Tw/HwQkb/UmJ8WihKndur0bSUT0BYw==}
+  ultracite@7.0.11:
+    resolution: {integrity: sha512-YeuJTf/Tu12l7K0qvl1G525NfrPUay6UFVt6TrTL8QfXcFZBI+Tzr0Dg14Hxcb964pRQF5PjBaUk3bJCNQHu+g==}
     hasBin: true
+    peerDependencies:
+      oxlint: ^1.0.0
+    peerDependenciesMeta:
+      oxlint:
+        optional: true
 
   undici-types@6.21.0:
     resolution: {integrity: sha512-iwDZqg0QAGrg9Rav5H4n0M64c3mkR59cJ6wQp+7C4nI0gsmExaedaYLNO44eT4AtBBwjbTiGPMlt2Md0T9H9JQ==}
@@ -2945,6 +2991,15 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
+  framer-motion@12.26.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+    dependencies:
+      motion-dom: 12.24.11
+      motion-utils: 12.24.10
+      tslib: 2.8.1
+    optionalDependencies:
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+
   fsevents@2.3.3:
     optional: true
 
@@ -3072,6 +3127,12 @@ snapshots:
 
   minipass@7.1.2: {}
 
+  motion-dom@12.24.11:
+    dependencies:
+      motion-utils: 12.24.10
+
+  motion-utils@12.24.10: {}
+
   mysql2@3.15.3:
     dependencies:
       aws-ssl-profiles: 1.1.2
@@ -3089,6 +3150,11 @@ snapshots:
       lru.min: 1.1.3
 
   nanoid@3.3.11: {}
+
+  next-themes@0.4.6(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
 
   next@16.1.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
     dependencies:
@@ -3136,6 +3202,7 @@ snapshots:
       '@oxlint/linux-x64-musl': 1.36.0
       '@oxlint/win32-arm64': 1.36.0
       '@oxlint/win32-x64': 1.36.0
+    optional: true
 
   path-key@3.1.1: {}
 
@@ -3356,6 +3423,11 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
+  sonner@2.0.7(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
+    dependencies:
+      react: 19.2.3
+      react-dom: 19.2.3(react@19.2.3)
+
   source-map-js@1.2.1: {}
 
   split2@4.2.0: {}
@@ -3377,7 +3449,7 @@ snapshots:
 
   tinyexec@1.0.2: {}
 
-  trpc-cli@0.12.1(@trpc/server@11.8.1(typescript@5.9.3))(effect@3.18.4)(valibot@1.2.0(typescript@5.9.3))(zod@4.3.5):
+  trpc-cli@0.12.2(@trpc/server@11.8.1(typescript@5.9.3))(effect@3.18.4)(valibot@1.2.0(typescript@5.9.3))(zod@4.3.5):
     dependencies:
       commander: 14.0.2
     optionalDependencies:
@@ -3401,7 +3473,7 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  ultracite@7.0.8(effect@3.18.4)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3)):
+  ultracite@7.0.11(effect@3.18.4)(oxlint@1.36.0)(typescript@5.9.3)(valibot@1.2.0(typescript@5.9.3)):
     dependencies:
       '@clack/prompts': 0.11.0
       '@trpc/server': 11.8.1(typescript@5.9.3)
@@ -3409,14 +3481,14 @@ snapshots:
       glob: 13.0.0
       jsonc-parser: 3.3.1
       nypm: 0.6.2
-      oxlint: 1.36.0
-      trpc-cli: 0.12.1(@trpc/server@11.8.1(typescript@5.9.3))(effect@3.18.4)(valibot@1.2.0(typescript@5.9.3))(zod@4.3.5)
+      trpc-cli: 0.12.2(@trpc/server@11.8.1(typescript@5.9.3))(effect@3.18.4)(valibot@1.2.0(typescript@5.9.3))(zod@4.3.5)
       zod: 4.3.5
+    optionalDependencies:
+      oxlint: 1.36.0
     transitivePeerDependencies:
       - '@orpc/server'
       - '@valibot/to-json-schema'
       - effect
-      - oxlint-tsgolint
       - typescript
       - valibot
 

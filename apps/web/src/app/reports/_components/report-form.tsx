@@ -5,7 +5,9 @@ import {
   DialogTitle,
 } from "@radix-ui/react-dialog";
 import { Label } from "@radix-ui/react-label";
+import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
+import { toast } from "sonner";
 import { postReport, validateFileForForm } from "@/actions/report.action";
 import { Button } from "@/components/ui/button";
 import { DialogFooter, DialogHeader } from "@/components/ui/dialog";
@@ -13,14 +15,21 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import type { ActionResult } from "@/types/action";
 
-export default function FormReportDialog() {
+interface FormReportDialogProps {
+  closeDialog: () => void;
+}
+export default function FormReportDialog({
+  closeDialog,
+}: FormReportDialogProps) {
   const [errors, setErrors] = useState<Record<string, string[]> | null>(null);
-
   //submit button with sync validation
   const handleSubmit = async (formData: FormData) => {
     const res = await postReport(formData);
 
-    if (!res.success) {
+    if (res.success) {
+      closeDialog();
+      toast.success("Your report is successfully created!");
+    } else {
       setErrors(res.fieldErrors ?? null);
     }
   };
@@ -49,6 +58,7 @@ export default function FormReportDialog() {
   const isSubmitDisabled =
     fileValidationResult?.success === false &&
     !!fileValidationResult.formErrors?.length;
+
   return (
     <form action={handleSubmit}>
       <DialogHeader>
@@ -70,7 +80,20 @@ export default function FormReportDialog() {
             onChange={(e) => validateField("title", e.target.value)}
             placeholder="Type title here."
           />
-          <p className="text-red-500">{errors?.report[0] ?? null}</p>
+          <AnimatePresence>
+            {errors?.report?.[0] && (
+              <motion.p
+                animate={{ opacity: 1, y: 0 }}
+                className="my-2 rounded-2xlshadow-sm text-red-600"
+                exit={{ opacity: 0, y: -5 }}
+                initial={{ opacity: 0, y: -5 }}
+                key="title-error"
+                transition={{ duration: 0.3 }}
+              >
+                {errors.report[0]}
+              </motion.p>
+            )}
+          </AnimatePresence>{" "}
         </div>
 
         {/* Description */}
@@ -95,13 +118,21 @@ export default function FormReportDialog() {
               onChange={handleFileChange}
               type="file"
             />
-            {fileValidationResult?.success === false &&
-              fileValidationResult.formErrors?.map((msg, i) => (
-                // biome-ignore lint/suspicious/noArrayIndexKey: <noArrayIndexKey>
-                <p className="my-2 text-red-600" key={i}>
-                  {`${msg}`}
-                </p>
-              ))}
+            <AnimatePresence>
+              {fileValidationResult?.success === false &&
+                fileValidationResult.formErrors?.map((msg, i) => (
+                  <motion.p
+                    animate={{ opacity: 1, y: 0 }}
+                    className="my-2 text-red-600"
+                    exit={{ opacity: 0, y: -5 }}
+                    initial={{ opacity: 0, y: -5 }}
+                    key={i}
+                    transition={{ duration: 0.3 }}
+                  >
+                    {msg}
+                  </motion.p>
+                ))}
+            </AnimatePresence>
           </div>
         </div>
       </div>

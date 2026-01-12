@@ -11,7 +11,7 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -116,17 +116,6 @@ export function AdminReportDataTable({ data }: { data: ReportIssue[] }) {
         .includes(filterValue.toLowerCase()),
   });
 
-  // ==================== Фильтры ====================
-  const statusOptions = useMemo(
-    () => [
-      { value: "", label: "All" },
-      { value: "0", label: "Open" },
-      { value: "1", label: "In Progress" },
-      { value: "2", label: "Closed" },
-    ],
-    []
-  );
-
   return (
     <div className="w-full space-y-4">
       {/* Глобальный поиск */}
@@ -148,7 +137,7 @@ export function AdminReportDataTable({ data }: { data: ReportIssue[] }) {
             columnFilters.find((f) => f.id === "status")?.value ?? "all"
           )}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="w-45">
             <SelectValue placeholder="Filter by status" />
           </SelectTrigger>
           <SelectContent>

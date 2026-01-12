@@ -7,7 +7,12 @@
   },
   "files": {
     "ignoreUnknown": true,
-    "includes": ["**/*.{ts,tsx,js,jsx}"]
+    "includes": [
+      "src/**/*.{ts,tsx,js,jsx}",
+      "!src/components/ui",
+      "!src/lib",
+      "!src/hooks"
+    ]
   },
   "formatter": {
     "enabled": true,
@@ -17,6 +22,7 @@
   "linter": {
     "enabled": true,
     "rules": {
+      
       "recommended": true,
       "suspicious": {
         "noUnknownAtRules": "off"
