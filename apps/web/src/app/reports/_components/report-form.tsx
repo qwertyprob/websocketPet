@@ -65,10 +65,10 @@ export default function FormReportDialog({
       <DialogHeader>
         <DialogTitle>Report an issue</DialogTitle>
         <DialogDescription>
-          <span className="mb-2 text-neutral-600 text-xs">
+          <p className="mb-2 text-start text-neutral-600 text-sm">
             If you've encountered a bug or have a suggestion, we'd love to hear
             from you.
-          </span>
+          </p>
         </DialogDescription>
       </DialogHeader>
       <div className="grid gap-4">
