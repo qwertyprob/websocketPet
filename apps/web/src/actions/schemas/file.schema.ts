@@ -1,6 +1,6 @@
 import z from "zod";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 1 * 1024 * 1024 * 1025; // 1gb
 const ALLOWED_TYPES = ["image/png", "image/jpeg", "video/mp4"];
 
 export const FileSchemaAsync = z

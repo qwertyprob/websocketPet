@@ -69,9 +69,14 @@ export const columns: ColumnDef<ReportIssue>[] = [
   {
     accessorKey: "description",
     header: () => <div className="text-center">Description</div>,
-    cell: ({ row }) => (
-      <div className="text-center">{row.getValue("description") ?? "-"}</div>
-    ),
+    cell: ({ row }) => {
+      const value = row.getValue("description") as string;
+
+      const displayValue =
+        value.length > 10 ? `${value.slice(0, 10)}...` : value;
+
+      return <div className="text-center">{displayValue || "-"}</div>;
+    },
   },
   {
     accessorKey: "createdAt",

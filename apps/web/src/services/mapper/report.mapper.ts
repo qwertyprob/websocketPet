@@ -1,5 +1,9 @@
-import { type IssueReport, IssueStatus } from "@prisma/client";
-import { type ReportIssue, ReportStatus } from "@/types/report";
+import { type Attachment, type IssueReport, IssueStatus } from "@prisma/client";
+import {
+  type ReportAttachment,
+  type ReportIssue,
+  ReportStatus,
+} from "@/types/report";
 
 export interface IssueReportCreate {
   title: string;
@@ -29,6 +33,31 @@ export function mapReportToDto(report: IssueReport): ReportIssue {
     createdAt: report.createdAt.toISOString(),
     updatedAt: report.updatedAt.toISOString(),
   } as ReportIssue;
+}
+export function mapReportToDtoWithFiles(
+  report: IssueReport,
+  attachment: Attachment[]
+): ReportIssue {
+  return {
+    id: report.id,
+    title: report.title,
+    description: report.description ?? undefined,
+    status: statusMap[report.status],
+    createdAt: report.createdAt.toISOString(),
+    updatedAt: report.updatedAt.toISOString(),
+    files: attachment.map((x) => mapReportFiles(x)),
+  } as ReportIssue;
+}
+export function mapReportFiles(attachment: Attachment): ReportAttachment {
+  return {
+    id: attachment.id,
+    file_name: attachment.file_name,
+    file_path: attachment.file_path,
+    file_size: attachment.file_size,
+    file_type: attachment.file_type,
+    reportId:attachment.reportId
+    
+  } as ReportAttachment;
 }
 
 export function mapReportToEntity(report: ReportIssue): Partial<IssueReport> {

@@ -2,6 +2,7 @@ import {
   createReport,
   deleteById,
   getAllOpen,
+  getAttachmentById,
   getById,
 } from "@/repositories/report.repository";
 import type { ReportIssue } from "@/types/report";
@@ -9,6 +10,7 @@ import { checkIfFileExists, saveFilesAsync } from "./file.service";
 import {
   mapReportToCreateEntity,
   mapReportToDto,
+  mapReportToDtoWithFiles,
 } from "./mapper/report.mapper";
 
 //GET
@@ -27,13 +29,14 @@ export async function getReportByIdAsync(
   reportId: number
 ): Promise<ReportIssue> {
   const report = await getById(reportId);
+  const attachment = await getAttachmentById(reportId);
 
   if (!report) {
     throw new Error("Report not found");
   }
 
   //mapping
-  return mapReportToDto(report);
+  return mapReportToDtoWithFiles(report, attachment);
 }
 
 export async function deleteReportByIdAsync(

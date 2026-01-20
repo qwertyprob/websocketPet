@@ -4,6 +4,7 @@ import z from "zod";
 import {
   createReportAsync,
   getAllReportsAsync,
+  getReportByIdAsync,
 } from "@/services/report.service";
 import type { ActionResult } from "@/types/action";
 import type { ReportIssue } from "@/types/report";
@@ -13,6 +14,12 @@ import { CreateReportSchema } from "./schemas/report.schema";
 export async function fetchReports(): Promise<ReportIssue[]> {
   const reports = await getAllReportsAsync();
   return reports;
+}
+
+export async function fetchReportById(reportId: number): Promise<ReportIssue> {
+ const report =  await getReportByIdAsync(reportId);
+
+ return report;
 }
 
 export async function postReport(formData: FormData): Promise<ActionResult> {

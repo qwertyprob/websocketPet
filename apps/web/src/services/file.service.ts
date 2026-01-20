@@ -5,8 +5,7 @@ import { generateFileName } from "@/lib/fileHelper";
 import type { ReportAttachment } from "@/types/report";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-
-const UPLOADS_DIR = path.join(__dirname, "../../../../uploads");
+const UPLOADS_DIR = path.join(process.cwd(), "public", "uploads");
 
 export async function checkIfFileExists(fileName: string) {
   try {
@@ -38,7 +37,7 @@ export async function saveFilesAsync(
 
     saved.push({
       file_name: fileName,
-      file_path: filePath,
+      file_path: `/uploads/${fileName}`,
       file_type: file.type ?? undefined,
       file_size: file.size ?? undefined,
     });

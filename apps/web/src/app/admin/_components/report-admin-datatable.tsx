@@ -79,7 +79,7 @@ export const columns: ColumnDef<ReportIssue>[] = [
     header: "Actions",
     cell: () => (
       <div className="flex justify-center gap-2">
-        <Button size="sm" variant="outline">
+        <Button size="sm" variant="outline" >
           View
         </Button>
         <Button size="sm" variant="secondary">

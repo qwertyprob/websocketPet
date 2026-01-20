@@ -1,4 +1,6 @@
-export default function parseDateTime(iso: string) {
+export default function parseDateTime(iso: string):string {
+  if (!iso) return "-"; 
+  
   const date = new Date(iso);
 
   const options: Intl.DateTimeFormatOptions = {

@@ -1,4 +1,4 @@
-import { type IssueReport, IssueStatus } from "@prisma/client";
+import { type Attachment, type IssueReport, IssueStatus } from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import type { IssueReportCreate } from "@/services/mapper/report.mapper";
 import type { ReportAttachment } from "@/types/report";
@@ -22,8 +22,14 @@ export async function getById(reportId: number): Promise<IssueReport | null> {
     where: {
       id: reportId,
     },
-    include: {
-      attachments: true,
+  });
+}
+export async function getAttachmentById(
+  reportId: number
+): Promise<Attachment[]> {
+  return await prisma.attachment.findMany({
+    where: {
+      reportId,
     },
   });
 }
