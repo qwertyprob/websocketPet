@@ -1,8 +1,8 @@
 "use client";
 import { useState } from "react";
+import FormReportDialog from "@/app/reports/_components/report-form";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import FormReportDialog from "./report-form";
 
 interface ReportDialogProps {
   buttonText?: string;

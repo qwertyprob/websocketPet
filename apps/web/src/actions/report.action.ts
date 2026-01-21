@@ -17,9 +17,9 @@ export async function fetchReports(): Promise<ReportIssue[]> {
 }
 
 export async function fetchReportById(reportId: number): Promise<ReportIssue> {
- const report =  await getReportByIdAsync(reportId);
+  const report = await getReportByIdAsync(reportId);
 
- return report;
+  return report;
 }
 
 export async function postReport(formData: FormData): Promise<ActionResult> {

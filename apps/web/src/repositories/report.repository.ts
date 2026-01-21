@@ -54,8 +54,20 @@ export async function createReport(
       attachments: {
         create: filesMetaData,
       },
+      chat: {
+        create: {
+          name: data.title,
+        },
+      },
     },
-    include: { attachments: true },
+    include: {
+      attachments: true,
+      chat: {
+        include: {
+          messages: true,
+        },
+      },
+    },
   });
 
   return report;

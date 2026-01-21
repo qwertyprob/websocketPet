@@ -55,8 +55,7 @@ export function mapReportFiles(attachment: Attachment): ReportAttachment {
     file_path: attachment.file_path,
     file_size: attachment.file_size,
     file_type: attachment.file_type,
-    reportId:attachment.reportId
-    
+    reportId: attachment.reportId,
   } as ReportAttachment;
 }
 
