@@ -42,7 +42,7 @@ export default function AdminChatCard({ chat }: { chat: ChatDto }) {
     }
 
     const formData = new FormData(e.currentTarget);
-    await validateSendMessage(Number(chat.id), UserRole.USER, formData);
+    await validateSendMessage(Number(chat.id), UserRole.ADMIN, formData);
 
     //ws
     if (ws.current?.readyState === WebSocket.OPEN) {
