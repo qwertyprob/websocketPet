@@ -19,7 +19,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import parseDate from "@/lib/dateParser";
+import { parseDateTime } from "@/lib/dateParser";
 import type { ReportIssue } from "@/types/report";
 
 // ==================== КОЛОНКИ ТАБЛИЦЫ ====================
@@ -73,7 +73,7 @@ export const columns: ColumnDef<ReportIssue>[] = [
       const value = row.getValue("description") as string;
 
       const displayValue =
-        value.length > 10 ? `${value.slice(0, 10)}...` : value;
+        value.length > 10 ? `${value.slice(0, 20)}...` : value;
 
       return <div className="text-center">{displayValue || "-"}</div>;
     },
@@ -82,17 +82,22 @@ export const columns: ColumnDef<ReportIssue>[] = [
     accessorKey: "createdAt",
     header: ({ column }) => (
       <Button
+        className="flex w-full items-center justify-center gap-1"
         onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         variant="ghost"
       >
-        Created <ArrowUpDown />
+        Created
+        <ArrowUpDown className="h-4 w-4" />
       </Button>
     ),
+
     cell: ({ row }) => {
       const date = new Date(row.getValue("createdAt"));
 
       return (
-        <div className="text-start">{parseDate(date.toLocaleDateString())}</div>
+        <div className="text-center">
+          {parseDateTime(date.toLocaleDateString())}
+        </div>
       );
     },
   },

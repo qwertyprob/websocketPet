@@ -1,10 +1,10 @@
 import { MessageSquare } from "lucide-react";
+import { fetchChat } from "@/actions/chat.action";
 import { fetchReportById } from "@/actions/report.action";
 import ChatCard from "@/app/reports/_components/chat";
 import BackButton from "@/components/dashboard/back-button";
 import DashboardHeader from "@/components/dashboard/dashboard-header";
 import DashboardLayout from "@/components/dashboard/dashboard-layout";
-import type { ReportIssue } from "@/types/report";
 import ReportInfoCard from "../_components/report-info";
 
 export default async function ReportPage({
@@ -13,7 +13,9 @@ export default async function ReportPage({
   params: Promise<{ id: string }>;
 }) {
   const resolvedParams = await params;
-  const report: ReportIssue = await fetchReportById(Number(resolvedParams.id));
+  const reportId = Number(resolvedParams.id);
+  const report = await fetchReportById(reportId);
+  const chat = await fetchChat(reportId);
 
   return (
     <DashboardLayout>
@@ -42,7 +44,7 @@ export default async function ReportPage({
             <ReportInfoCard report={report} />
 
             {/* Center - Chat area */}
-            <ChatCard />
+            <ChatCard chat={chat} />
           </div>
         </div>
       </div>

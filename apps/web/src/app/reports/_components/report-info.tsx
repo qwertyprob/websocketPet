@@ -1,5 +1,5 @@
 import { AlertCircle, CheckCircle2, Clock, Download, File } from "lucide-react";
-import parseDateTime from "@/lib/dateParser";
+import { parseDateTime } from "@/lib/dateParser";
 import { normalizeSize } from "@/lib/fileHelper";
 import type { ReportIssue } from "@/types/report";
 

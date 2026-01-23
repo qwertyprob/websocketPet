@@ -38,17 +38,17 @@ model Attachment {
 }
 
 model Chat {
-  id        Int            @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   name      String
-  createdAt DateTime       @default(now())
-  updatedAt DateTime       @default(now()) @updatedAt
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @default(now()) @updatedAt
   //Relations
-  reportId  Int            @unique
-  report    IssueReport    @relation(fields: [reportId], references: [id])
-  messages  ChatMessages[]
+  reportId  Int           @unique
+  report    IssueReport   @relation(fields: [reportId], references: [id])
+  messages  ChatMessage[]
 }
 
-model ChatMessages {
+model ChatMessage {
   id          Int      @id @default(autoincrement())
   message     String
   sender_role Role     @default(USER)

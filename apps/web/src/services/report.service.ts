@@ -29,6 +29,7 @@ export async function getReportByIdAsync(
   reportId: number
 ): Promise<ReportIssue> {
   const report = await getById(reportId);
+
   const attachment = await getAttachmentById(reportId);
 
   if (!report) {
@@ -69,19 +70,17 @@ export async function createReportAsync(
   }
 }
 
-async function _deleteFiles(reports: ReportIssue[]) {
-  for (const report of reports) {
-    const files = report.files ?? [];
+//deleted files from dir
+async function _deleteFiles(report: ReportIssue) {
+  const files = report.files ?? [];
 
-    for (const file of files) {
-      const exists = await checkIfFileExists(file.file_name);
-      if (!exists) {
-        if (report.id !== undefined) {
-          console.log("Middleware сработал для /reports");
-          await deleteReportByIdAsync(report.id);
-        }
-        break;
+  for (const file of files) {
+    const exists = await checkIfFileExists(file.file_name);
+    if (!exists) {
+      if (report.id !== undefined) {
+        await deleteReportByIdAsync(report.id);
       }
+      break;
     }
   }
 }

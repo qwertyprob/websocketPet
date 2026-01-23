@@ -1,10 +1,15 @@
+import { json } from "node:stream/consumers";
 import WebSocket from "ws";
 
 const socket = new WebSocket("ws://localhost:3001");
 
 socket.on("open", () => {
-  console.log("Connected to server");
-  socket.send("Hello Server!");
+
+  setInterval(()=>{
+    socket.send(JSON.stringify({ json: true }));
+  },1000)
+
+  
 });
 
 socket.on("message", (data) => {

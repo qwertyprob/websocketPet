@@ -1,4 +1,9 @@
-import { type Attachment, type IssueReport, IssueStatus } from "@prisma/client";
+import {
+  type Attachment,
+  type IssueReport,
+  IssueStatus,
+  Role,
+} from "@prisma/client";
 import { prisma } from "@/lib/prisma";
 import type { IssueReportCreate } from "@/services/mapper/report.mapper";
 import type { ReportAttachment } from "@/types/report";
@@ -25,7 +30,7 @@ export async function getById(reportId: number): Promise<IssueReport | null> {
   });
 }
 export async function getAttachmentById(
-  reportId: number
+  reportId: number,
 ): Promise<Attachment[]> {
   return await prisma.attachment.findMany({
     where: {
@@ -46,7 +51,7 @@ export async function deleteById(reportId: number): Promise<boolean> {
 //CREATE
 export async function createReport(
   data: IssueReportCreate,
-  filesMetaData: ReportAttachment[]
+  filesMetaData: ReportAttachment[],
 ) {
   const report = await prisma.issueReport.create({
     data: {
@@ -57,6 +62,13 @@ export async function createReport(
       chat: {
         create: {
           name: data.title,
+          messages: {
+            create: {
+              message:
+                "Your request is under review! You can write to tech support here.",
+              sender_role: Role.ADMIN,
+            },
+          },
         },
       },
     },

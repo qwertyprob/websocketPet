@@ -1,4 +1,4 @@
-export default function parseDateTime(iso: string):string {
+export  function parseDateTime(iso: string):string {
   if (!iso) return "-"; 
   
   const date = new Date(iso);
@@ -16,3 +16,15 @@ export default function parseDateTime(iso: string):string {
 
   return new Intl.DateTimeFormat("en-GB", options).format(date);
 }
+
+export function parseMessageDate(iso?: string): string {
+  if (!iso) return "-";
+
+  const date = new Date(iso);
+  const hours = date.getHours().toString().padStart(2, "0");
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${hours}:${minutes}`;
+}
+
+

@@ -1,14 +1,18 @@
-import { type Chat, type ChatMessages, Role } from "@prisma/client";
+import { type Chat, type ChatMessage, Role } from "@prisma/client";
 import { type ChatDto, type MessageDto, UserRole } from "@/types/chat";
 
 const roleMap: Record<Role, UserRole> = {
   [Role.ADMIN]: UserRole.ADMIN,
   [Role.USER]: UserRole.USER,
 };
+const roleReverseMap: Record<number, Role> = {
+  0: Role.USER,
+  1: Role.ADMIN,
+};
 
 export function mapChatToDto(
   chatEntity: Chat,
-  chatMessages: ChatMessages[]
+  chatMessages: ChatMessage[],
 ): ChatDto {
   return {
     id: chatEntity.id,
@@ -20,7 +24,7 @@ export function mapChatToDto(
   } as ChatDto;
 }
 
-export function mapMessagesToDto(message: ChatMessages): MessageDto {
+export function mapMessagesToDto(message: ChatMessage): MessageDto {
   return {
     id: message.id,
     message: message.message,
@@ -28,4 +32,11 @@ export function mapMessagesToDto(message: ChatMessages): MessageDto {
     createdAt: message.createdAt.toISOString(),
     updatedAt: message.updatedAt.toISOString(),
   } as MessageDto;
+}
+
+export function mapMessagesToEntity(message: MessageDto): ChatMessage {
+  return {
+    message: message.message,
+    sender_role: roleReverseMap[message.senderRole],
+  } as ChatMessage;
 }

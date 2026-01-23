@@ -11,8 +11,16 @@ import {
   type SortingState,
   useReactTable,
 } from "@tanstack/react-table";
+import { MoreHorizontal } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
   Select,
@@ -29,72 +37,110 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import parseDate from "@/lib/dateParser";
+import { parseDateTime } from "@/lib/dateParser";
 import type { ReportIssue } from "@/types/report";
 
-// ==================== КОЛОНКИ ====================
-export const columns: ColumnDef<ReportIssue>[] = [
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => {
-      const status: number = row.getValue("status");
-      const statusMap: Record<number, { text: string; color: string }> = {
-        0: { text: "Open", color: "text-green-500" },
-        1: { text: "In Progress", color: "text-orange-400" },
-        2: { text: "Closed", color: "text-red-600" },
-      };
-      const { text, color } = statusMap[status] || statusMap[0];
-      return <div className={`text-center font-semibold ${color}`}>{text}</div>;
-    },
-    filterFn: (row, id, value) =>
-      value === "" || row.getValue(id) === Number(value),
-  },
-  {
-    accessorKey: "title",
-    header: "Title",
-    cell: ({ row }) => (
-      <div className="text-center">{row.getValue("title")}</div>
-    ),
-    filterFn: "includesString",
-  },
-  {
-    accessorKey: "description",
-    header: "Description",
-    cell: ({ row }) => (
-      <div className="text-center">{row.getValue("description") ?? "-"}</div>
-    ),
-    filterFn: "includesString",
-  },
-  {
-    accessorKey: "createdAt",
-    header: "Created",
-    cell: ({ row }) => {
-      const date = new Date(row.getValue("createdAt"));
-      return <div className="text-center">{parseDate(date.toISOString())}</div>;
-    },
-  },
-  {
-    id: "actions",
-    header: "Actions",
-    cell: () => (
-      <div className="flex justify-center gap-2">
-        <Button size="sm" variant="outline">
-          View
-        </Button>
-        <Button size="sm" variant="secondary">
-          Edit
-        </Button>
-        <Button size="sm" variant="destructive">
-          Delete
-        </Button>
-      </div>
-    ),
-  },
-];
-
-// ==================== КОМПОНЕНТ ====================
 export function AdminReportDataTable({ data }: { data: ReportIssue[] }) {
+  const router = useRouter();
+  // ==================== КОЛОНКИ ====================
+  const columns: ColumnDef<ReportIssue>[] = [
+    {
+      accessorKey: "status",
+      header: () => (
+        <div className="flex items-center justify-center">Status</div>
+      ),
+      cell: ({ row }) => {
+        const status: number = row.getValue("status");
+        const statusMap: Record<number, { text: string; color: string }> = {
+          0: { text: "Open", color: "text-green-500" },
+          1: { text: "In Progress", color: "text-orange-400" },
+          2: { text: "Closed", color: "text-red-600" },
+        };
+        const { text, color } = statusMap[status] || statusMap[0];
+        return (
+          <div className={`text-center font-semibold ${color}`}>{text}</div>
+        );
+      },
+      filterFn: (row, id, value) =>
+        value === "" || row.getValue(id) === Number(value),
+    },
+    {
+      accessorKey: "title",
+      header: () => (
+        <div className="flex items-center justify-center">Title</div>
+      ),
+      cell: ({ row }) => (
+        <div className="flex h-full items-center justify-center">
+          {row.getValue("title")}
+        </div>
+      ),
+      filterFn: "includesString",
+    },
+    {
+      accessorKey: "description",
+      header: () => (
+        <div className="flex items-center justify-center">Description</div>
+      ),
+      cell: ({ row }) => {
+        const value = row.getValue("description") as string;
+
+        const displayValue =
+          value.length > 10 ? `${value.slice(0, 20)}...` : value;
+
+        return <div className="text-center">{displayValue || "-"}</div>;
+      },
+      filterFn: "includesString",
+    },
+    {
+      accessorKey: "createdAt",
+      header: () => (
+        <div className="flex items-center justify-center">Created</div>
+      ),
+      cell: ({ row }) => {
+        const date = new Date(row.getValue("createdAt"));
+        return (
+          <div className="text-center">{parseDateTime(date.toISOString())}</div>
+        );
+      },
+    },
+    {
+      id: "actions",
+      header: () => (
+        <div className="flex items-center justify-center">Actions</div>
+      ),
+      cell: ({ row }) => (
+        <div className="flex justify-center">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button className="bg-transparent hover:bg-neutral-400">
+                <MoreHorizontal className="h-4 w-4 text-gray-600" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-32">
+              <DropdownMenuItem
+                onClick={() => router.push(`/admin/reports/${row.original.id}`)}
+              >
+                View
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => console.log("Edit", row.original)}
+              >
+                Edit
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => console.log("Delete", row.original)}
+              >
+                Delete
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+      ),
+    },
+  ];
+
+  // ==================== КОМПОНЕНТ ====================
+
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
   const [globalFilter, setGlobalFilter] = useState<string>("");
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -199,18 +245,16 @@ export function AdminReportDataTable({ data }: { data: ReportIssue[] }) {
       {/* Пагинация */}
       <div className="flex items-center justify-end space-x-2 py-4">
         <Button
+          className="rounded border px-3 py-1 disabled:opacity-50"
           disabled={!table.getCanPreviousPage()}
           onClick={() => table.previousPage()}
-          size="sm"
-          variant="outline"
         >
           Previous
         </Button>
         <Button
+          className="rounded border px-3 py-1 disabled:opacity-50"
           disabled={!table.getCanNextPage()}
           onClick={() => table.nextPage()}
-          size="sm"
-          variant="outline"
         >
           Next
         </Button>

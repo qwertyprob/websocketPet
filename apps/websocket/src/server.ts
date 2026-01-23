@@ -1,32 +1,25 @@
 import { randomBytes } from "node:crypto";
-import { WebSocketServer } from "ws";
-
-// Сервер слушает порт 3001
+import WebSocket, { WebSocketServer } from "ws";
 const wss = new WebSocketServer({ port: 3001 });
 
 wss.on("connection", (ws) => {
   console.log("Client connected");
 
-  // При получении сообщения от клиента
   ws.on("message", (message) => {
-    console.log("Received:", message.toString());
+    const msgString = message.toString();
+    console.log("Received:", msgString);
 
-    // Можно отправить ответ клиенту
-    setInterval(() => {
-      const randomNumber = Math.floor(Math.random() * 1200);
-
-      ws.send(
-        `Server received: ${message.toString()} + random: ${randomNumber}`
-      );
-    }, 3000);
+    wss.clients.forEach((client) => {
+      if (client.readyState === WebSocket.OPEN) {
+        client.send(message.toString());
+      }
+    });
   });
 
-  // При закрытии соединения
   ws.on("close", () => {
     console.log("Client disconnected");
   });
 
-  // Отправляем сообщение клиенту сразу после подключения
   ws.send("Welcome to the WebSocket server!");
 });
 

@@ -1,0 +1,18 @@
+services:
+  nextjs:
+    build:
+      context: ./apps/web
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - websocket
+
+  websocket:
+    build:
+      context: ./apps/websocket
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"

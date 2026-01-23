@@ -1,23 +1,18 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-// Creates a new WebSocket connection to the specified URL.
+import { json } from "node:stream/consumers";
+import WebSocket from "ws";
 const socket = new WebSocket("ws://localhost:3001");
-// Executes when the connection is successfully established.
-socket.addEventListener("open", (event) => {
-	console.log("WebSocket connection established!");
-	// Sends a message to the WebSocket server.
-	socket.send("Hello Server!");
+socket.on("open", () => {
+    setInterval(() => {
+        socket.send(JSON.stringify({ json: true }));
+    }, 1000);
 });
-// Listen for messages and executes when a message is received from the server.
-socket.addEventListener("message", (event) => {
-	console.log("Message from server: ", event.data);
+socket.on("message", (data) => {
+    console.log("Message from server:", data.toString());
 });
-// Executes when the connection is closed, providing the close code and reason.
-socket.addEventListener("close", (event) => {
-	console.log("WebSocket connection closed:", event.code, event.reason);
+socket.on("close", () => {
+    console.log("Connection closed");
 });
-// Executes if an error occurs during the WebSocket communication.
-socket.addEventListener("error", (error) => {
-	console.error("WebSocket error:", error);
+socket.on("error", (err) => {
+    console.error("WebSocket error:", err);
 });
 //# sourceMappingURL=main.js.map

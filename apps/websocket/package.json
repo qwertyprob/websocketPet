@@ -1,31 +1,31 @@
 {
-	"name": "websocket",
-	"version": "1.0.0",
-	"description": "",
-	"main": "main.ts",
-    "type": "module",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1",
-		"dev": "tsx watch src/main.ts",
-		"start": "tsc && node dist/main.js",
-		"lint": "biome lint .",
-		"check": "biome check . ",
-		"format": "biome format . --write"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"packageManager": "pnpm@10.26.2",
-	"dependencies": {
-		"ws": "^8.19.0"
-	},
-	"devDependencies": {
-		"@biomejs/biome": "2.3.11",
-		"@types/node": "^25.0.7",
-		"@types/ws": "^8.18.1",
-		"husky": "^9.1.7",
-		"tsx": "^4.21.0",
-		"typescript": "^5.9.3",
-		"ultracite": "7.0.11"
-	}
+  "name": "websocket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsc && concurrently \"tsx watch src/server.ts\" \"tsx watch src/main.ts\"",
+    "start": "tsc && node dist/server.js",
+    "lint": "biome lint .",
+    "check": "biome check . ",
+    "format": "biome format . --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.26.2",
+  "dependencies": {
+    "ws": "^8.19.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.3.11",
+    "@types/node": "^25.0.7",
+    "@types/ws": "^8.18.1",
+    "concurrently": "^9.2.1",
+    "husky": "^9.1.7",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3",
+    "ultracite": "7.0.11"
+  }
 }
