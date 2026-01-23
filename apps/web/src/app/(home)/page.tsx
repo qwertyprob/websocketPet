@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { AlertCircle } from "lucide-react";
 import Link from "next/link";
 import ReportDialog from "@/app/reports/_components/report-dialog";

@@ -13,7 +13,7 @@ export interface ReportAttachment extends BaseType {
   file_type?: string;
   file_size?: number;
 
-  reportId: number;
+  reportId?: number;
 }
 
 export const ReportStatus = {

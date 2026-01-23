@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { FileText } from "lucide-react";
 import { fetchReports } from "@/actions/report.action";
 import BackButton from "@/components/dashboard/back-button";

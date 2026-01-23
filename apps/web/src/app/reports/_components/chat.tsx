@@ -40,6 +40,7 @@ export default function ChatCard({ chat }: { chat: ChatDto }) {
     e.preventDefault();
     if (message.trim() === "") {
       return;
+      
     }
 
     const formData = new FormData(e.currentTarget);

@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { MessageSquare } from "lucide-react";
 import { fetchChat } from "@/actions/chat.action";
 import { fetchReportById } from "@/actions/report.action";

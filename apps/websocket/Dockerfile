@@ -11,5 +11,4 @@ COPY . .
 
 EXPOSE 3001
 
-RUN pnpm build
-CMD ["sh", "-c", "tsc && node dist/server.js"]
+RUN pnpm start
