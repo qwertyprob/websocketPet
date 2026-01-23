@@ -21,7 +21,7 @@ This is a personal project for reporting issues, managing requests, and real-tim
 - **Frontend**: Next.js
 - **Backend**: Node.js
 - **Real-Time Communication**: WebSocket
-- **Database / Storage**: JSON files (or specify if using a database)
+- **Database / Storage**
 
 ## How It Works
 
